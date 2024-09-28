@@ -30,7 +30,7 @@ export default function RootLayout({
                   <nav className="hidden md:flex space-x-4">
                     <Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link>
                     <Link href="/products" className="text-gray-600 hover:text-gray-900">Products</Link>
-                    <Link href="/contacts" className="text-gray-600 hover:text-gray-900">Contacts</Link>
+                    <Link href="/contact" className="text-gray-600 hover:text-gray-900">Contacts</Link>
                   </nav>
                   <div className="flex items-center space-x-4">
                     <Link href="/cart">

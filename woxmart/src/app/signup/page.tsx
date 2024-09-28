@@ -3,8 +3,9 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
-export default function Page() {
+export default function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { signup } = useAuth()
@@ -50,6 +51,12 @@ export default function Page() {
           Sign Up
         </button>
       </form>
+      <div className="mt-4 text-center">
+        Already have an account?{' '}
+        <Link href="/login" className="text-blue-600 hover:underline">
+          Log in
+        </Link>
+      </div>
     </div>
   )
 }

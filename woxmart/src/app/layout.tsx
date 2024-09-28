@@ -1,13 +1,15 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { AuthProvider } from '../app/context/AuthContext'
-import { CartProvider } from '../app/context/CartContext'
+import { AuthProvider } from './context/AuthContext'
+import { CartProvider } from './context/CartContext'
+import Link from 'next/link'
+import { ShoppingCart, User } from 'lucide-react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Next.js E-commerce',
-  description: 'A simple e-commerce site built with Next.js',
+  title: 'WOXMART',
+  description: 'Your campus delivery service',
 }
 
 export default function RootLayout({
@@ -21,22 +23,55 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             <div className="min-h-screen flex flex-col">
-              <header className="bg-blue-600 text-white p-4">
-                <nav className="container mx-auto flex justify-between items-center">
-                  <h1 className="text-2xl font-bold">Next.js E-commerce</h1>
-                  <div className="space-x-4">
-                    <a href="/" className="hover:underline">Home</a>
-                    <a href="/login" className="hover:underline">Login</a>
-                    <a href="/signup" className="hover:underline">Signup</a>
-                    <a href="/cart" className="hover:underline">Cart</a>
+              {/* Header */}
+              <header className="bg-white py-4 shadow-md">
+                <div className="container mx-auto px-4 flex items-center justify-between">
+                  <Link href="/" className="text-2xl font-bold">WOXMART</Link>
+                  <nav className="hidden md:flex space-x-4">
+                    <Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link>
+                    <Link href="/products" className="text-gray-600 hover:text-gray-900">Products</Link>
+                    <Link href="/contacts" className="text-gray-600 hover:text-gray-900">Contacts</Link>
+                  </nav>
+                  <div className="flex items-center space-x-4">
+                    <Link href="/cart">
+                      <ShoppingCart className="h-6 w-6 text-gray-600 hover:text-gray-900" />
+                    </Link>
+                    <Link href="/signup">
+                      <User className="h-6 w-6 text-gray-600 hover:text-gray-900" />
+                    </Link>
                   </div>
-                </nav>
+                </div>
               </header>
-              <main className="flex-grow container mx-auto p-4">
+
+              {/* Main Content */}
+              <main className="flex-grow">
                 {children}
               </main>
-              <footer className="bg-gray-200 p-4 text-center">
-                © 2023 Next.js E-commerce. All rights reserved.
+
+              {/* Footer */}
+              <footer className="bg-pink-300 py-8">
+                <div className="container mx-auto px-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                      <h3 className="text-xl font-bold mb-2">WOXMART</h3>
+                      <p>FOR ITEMS ON THE GO</p>
+                    </div>
+                    <div>
+                      <h4 className="font-bold mb-2">CONTACT</h4>
+                      <ul>
+                        <li><Link href="/source" className="hover:underline">Source</Link></li>
+                        <li><Link href="/delivery-regions" className="hover:underline">Delivery regions</Link></li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-bold mb-2">INFORMATION</h4>
+                      <ul>
+                        <li><Link href="/student-jobs" className="hover:underline">Student jobs</Link></li>
+                        <li><Link href="/resources" className="hover:underline">Resources</Link></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </footer>
             </div>
           </CartProvider>

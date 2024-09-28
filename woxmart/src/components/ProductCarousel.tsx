@@ -1,25 +1,30 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCart } from '../app/context/CartContext'
 
 type Product = {
-  id: string
+  _id: string
   name: string
   price: number
   image: string
 }
 
-const products: Product[] = [
-  { id: '1', name: 'Product 1', price: 19.99, image: '/placeholder.svg?height=200&width=200' },
-  { id: '2', name: 'Product 2', price: 29.99, image: '/placeholder.svg?height=200&width=200' },
-  { id: '3', name: 'Product 3', price: 39.99, image: '/placeholder.svg?height=200&width=200' },
-  { id: '4', name: 'Product 4', price: 49.99, image: '/placeholder.svg?height=200&width=200' },
-]
-
-export default function ProductCarouselComponent() {
+export default function ProductCarousel() {
+  const [products, setProducts] = useState<Product[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const { addToCart } = useCart()
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch('/api/products')
+      const data = await response.json()
+      if (data.success) {
+        setProducts(data.data)
+      }
+    }
+    fetchProducts()
+  }, [])
 
   const nextProduct = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % products.length)
@@ -27,6 +32,10 @@ export default function ProductCarouselComponent() {
 
   const prevProduct = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + products.length) % products.length)
+  }
+
+  if (products.length === 0) {
+    return <div>Loading...</div>
   }
 
   const currentProduct = products[currentIndex]
